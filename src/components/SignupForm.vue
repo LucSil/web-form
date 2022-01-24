@@ -14,6 +14,12 @@
       <option value="dataAnalyst">Data Analyst</option>
     </select>
 
+    <label>Skills:</label>
+    <input type="text" v-model="tempSkill" @keyup="addSkill" />
+    <div class="pill" v-for="skill in skills" :key="skill">
+      <span @click="deleteSkill(skill)">{{ skill }}</span>
+    </div>
+
     <div class="terms">
       <input type="checkbox" reuired v-model="terms" />
       <label>Accept Terms & Conditions</label>
@@ -30,8 +36,24 @@ export default {
       password: "",
       role: "frontendDev",
       terms: false,
+      tempSkill: "",
       skills: [],
     };
+  },
+  methods: {
+    addSkill: function (e) {
+      if (e.key === "Enter" && this.tempSkill) {
+        if (!this.skills.includes(this.tempSkill)) {
+          this.skills.push(this.tempSkill);
+        }
+        this.tempSkill = "";
+      }
+    },
+    deleteSkill(skill) {
+      this.skills = this.skills.filter((item) => {
+        return skill !== item;
+      });
+    },
   },
 };
 </script>
@@ -80,5 +102,17 @@ input[type="checkbox"] {
 }
 input[type="checkbox"]:focus {
   outline: none;
+}
+.pill {
+  display: inline-block;
+  margin: 20px 10px 0 0;
+  padding: 6px 12px;
+  background: #eee;
+  border-radius: 20px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: #777;
+  cursor: pointer;
 }
 </style>
