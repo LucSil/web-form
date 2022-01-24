@@ -24,6 +24,10 @@
       <input type="checkbox" reuired v-model="terms" />
       <label>Accept Terms & Conditions</label>
     </div>
+
+    <div class="submit">
+      <button>Create Account</button>
+    </div>
   </form>
   <p v-if="terms">Terms & Conditions Accepted</p>
 </template>
@@ -114,5 +118,22 @@ input[type="checkbox"]:focus {
   font-weight: bold;
   color: #777;
   cursor: pointer;
+}
+button {
+  background: #0b6dff;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: #0b6dff;
+}
+.submit {
+  text-align: center;
 }
 </style>
