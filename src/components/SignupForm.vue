@@ -1,20 +1,21 @@
 <template>
-  <form>
+  <form @submit.prevent="handleSubmit" onkeydown="return event.key !='Enter';">
     <label>Email:</label>
     <input type="email" required v-model="email" />
 
     <label>Password:</label>
     <input type="password" required v-model="password" />
+    <div v-if="passwordError" class="error">{{ passwordError }}</div>
 
     <label>Role:</label>
-    <select v-model="role">
+    <select v-model="role" required>
       <option value="frontendDev">Frontend Developer</option>
       <option value="uiDesigner">UI Designer</option>
       <option value="backendDev">Backend Developer</option>
       <option value="dataAnalyst">Data Analyst</option>
     </select>
 
-    <label>Skills:</label>
+    <label>Skills: (Hit <b>spacebar</b> to add skill)</label>
     <input type="text" v-model="tempSkill" @keyup="addSkill" />
     <div class="pill" v-for="skill in skills" :key="skill">
       <span @click="deleteSkill(skill)">{{ skill }}</span>
@@ -29,7 +30,6 @@
       <button>Create Account</button>
     </div>
   </form>
-  <p v-if="terms">Terms & Conditions Accepted</p>
 </template>
 
 <script>
@@ -42,11 +42,12 @@ export default {
       terms: false,
       tempSkill: "",
       skills: [],
+      passwordError: "",
     };
   },
   methods: {
     addSkill: function (e) {
-      if (e.key === "Enter" && this.tempSkill) {
+      if (e.key === " " && this.tempSkill) {
         if (!this.skills.includes(this.tempSkill)) {
           this.skills.push(this.tempSkill);
         }
@@ -57,6 +58,21 @@ export default {
       this.skills = this.skills.filter((item) => {
         return skill !== item;
       });
+    },
+    handleSubmit: function () {
+      // validate password
+      this.passwordError =
+        this.password.length > 5
+          ? ""
+          : "Password must be at least 6 characters long";
+
+      if (!this.passwordError) {
+        console.log(`email: ${this.email}`);
+        console.log(`password: ${this.password}`);
+        console.log(`role: ${this.role}`);
+        console.log(`skills: ${this.skills}`);
+        console.log(`terms accepted: ${this.terms}`);
+      }
     },
   },
 };
@@ -135,5 +151,11 @@ button:hover {
 }
 .submit {
   text-align: center;
+}
+.error {
+  color: #ff0062;
+  margin-top: 10px;
+  font-size: 0.8em;
+  font-weight: bold;
 }
 </style>
