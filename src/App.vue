@@ -20,10 +20,8 @@ export default {
   color: #444;
   margin-top: 60px;
 }
-#app h1 {
-  width: 400px;
-  margin: 0 auto 20px auto;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
+body {
+  margin: 0;
+  background: #eee;
 }
 </style>
