@@ -1,12 +1,29 @@
 <template>
   <form>
     <label>Email:</label>
-    <input type="email" name="" id="" />
+    <input type="email" required v-model="email" />
+    <label>Password:</label>
+    <input type="password" required v-model="password" />
+    <label>Role:</label>
+    <select v-model="role">
+      <option value="frontendDev">Frontend Developer</option>
+      <option value="uiDesigner">UI Designer</option>
+      <option value="backendDev">Backend Developer</option>
+      <option value="dataAnalyst">Data Analyst</option>
+    </select>
   </form>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      email: "",
+      password: "",
+      role: "frontendDev",
+    };
+  },
+};
 </script>
 
 <style>
@@ -16,7 +33,7 @@ form {
   background: white;
   text-align: left;
   padding: 40px;
-  border-radius: 30px;
+  border-radius: 10px;
 }
 label {
   color: #aaa;
@@ -27,7 +44,8 @@ label {
   letter-spacing: 1px;
   font-weight: bold;
 }
-input {
+input,
+select {
   display: block;
   padding: 10px 6px;
   width: 100%;
@@ -35,5 +53,12 @@ input {
   border: none;
   border-bottom: 1px solid #ddd;
   color: #555;
+}
+select {
+  background: none;
+}
+input:focus {
+  outline: 2px solid #555;
+  border-radius: 2px;
 }
 </style>
